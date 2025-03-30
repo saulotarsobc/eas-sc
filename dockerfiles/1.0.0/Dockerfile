@@ -15,6 +15,7 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     build-essential \
+    wget \
     && apt-get clean
 
 # Instalar o NVM (Node Version Manager)
@@ -43,6 +44,7 @@ ENV ANDROID_NDK_HOME=$ANDROID_HOME/ndk/26.1.10909125
 ENV PATH=$ANDROID_HOME/platform-tools:$PATH
 ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
 ENV PATH=$ANDROID_HOME/build-tools/34.0.0:$PATH
+ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
 
 # Instalar os pacotes necessários do SDK
 RUN sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0" "cmdline-tools;latest" "ndk;26.1.10909125"
