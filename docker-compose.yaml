@@ -4,8 +4,3 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: eas-sc
-
-  app-prod:
-    image: saulotarsobc/eas-sc:latest
-    container_name: eas-sc-prod
-    command: tail -f /dev/null
