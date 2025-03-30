@@ -1,6 +1,9 @@
 # Usar a imagem base do Node.js 20 com Debian Bullseye
 FROM node:20-bullseye
 
+# Copiar logger.sh
+COPY logger.sh /logger.sh
+
 # Atualizar e instalar dependências
 RUN apt update && \
     apt upgrade -y && \
@@ -28,5 +31,17 @@ RUN mkdir -p $HOME/Android/Sdk/cmdline-tools && \
     mv cmdline-tools latest && \
     rm latest.zip
 
-# Comando padrão para manter o container rodando
-CMD ["/bin/sh", "-c", "tail -f /dev/null"]
+# Set Android environment variables
+ENV ANDROID_HOME=$HOME/Android/Sdk \
+    ANDROID_SDK_ROOT=$HOME/Android/Sdk \
+    ANDROID_NDK_HOME=$HOME/Android/Sdk/ndk/26.1.10909125 \
+    PATH=$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/cmdline-tools/latest/bin:$HOME/Android/Sdk/build-tools/34.0.0:$PATH
+
+# Tornar o script executável
+RUN chmod +x /logger.sh
+
+# Comando padrão para executar o script logger.sh("/bin/sh /logger.sh")
+CMD ["/bin/sh", "/logger.sh"]
+
+# Travar o terminal
+# CMD tail -f /dev/null

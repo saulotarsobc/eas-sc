@@ -1,6 +1,6 @@
 services:
   app:
     build:
-      context: ./dockerfiles/1.0.0
+      context: .
       dockerfile: Dockerfile
     container_name: eas-sc
