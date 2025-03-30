@@ -28,12 +28,13 @@ RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && nvm install 20 && nvm use 20 && nv
 RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && npm install -g yarn pnpm bun node-gyp expo-cli eas-cli"
 
 # Baixar e instalar o Android SDK
-RUN mkdir -p $HOME/Android/Sdk && \
+RUN mkdir -p $HOME/Android/Sdk/cmdline-tools && \
     cd $HOME/Android/Sdk && \
     wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O latest.zip && \
     unzip latest.zip && \
     rm latest.zip && \
-    mv cmdline-tools $HOME/Android/Sdk/cmdline-tools
+    mv cmdline-tools/* $HOME/Android/Sdk/cmdline-tools/ && \
+    rmdir cmdline-tools
 
 # Definir as variáveis de ambiente para o SDK e NDK
 ENV ANDROID_HOME=$HOME/Android/Sdk
