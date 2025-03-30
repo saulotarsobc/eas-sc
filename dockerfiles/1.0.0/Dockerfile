@@ -46,6 +46,13 @@ ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
 ENV PATH=$ANDROID_HOME/build-tools/34.0.0:$PATH
 ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
 
+# Instalar o sdkmanager diretamente (caso não tenha sido instalado com o cmdline-tools)
+RUN wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O /tmp/cmdline-tools.zip && \
+    mkdir /opt/android-sdk && \
+    unzip /tmp/cmdline-tools.zip -d /opt/android-sdk/ && \
+    rm /tmp/cmdline-tools.zip && \
+    mv /opt/android-sdk/cmdline-tools $ANDROID_HOME/cmdline-tools
+
 # Instalar os pacotes necessários do SDK
 RUN sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0" "cmdline-tools;latest" "ndk;26.1.10909125"
 
